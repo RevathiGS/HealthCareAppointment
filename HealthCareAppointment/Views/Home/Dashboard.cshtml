@@ -1,0 +1,55 @@
+﻿@model HealthCareAppointment.HealthCare_BLL.Models.Dashboard
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    <div>
+        <h5 style="text-align:right">Logged-in as @Session["Role"].ToString()</h5>
+    </div>
+    <br />
+    <div><h3 style="color:darkgray">Welcome @Session["Username"].ToString() !</h3></div>
+    <br />
+    @*<div>
+            <h4>Logged-in as @Session["Role"].ToString()</h4>
+        </div>
+        <br />*@
+    @if (@Session["Role"].ToString() == "Admin")
+    {
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" style="align-self:flex-end">
+                <li>@Html.ActionLink("Location", "Login", "Account", new { area = "" }, new { @class = "btn btn-primary" })</li>
+                <li>@Html.ActionLink("Patient", "Register", "Account", new { area = "" }, new { @class = "btn btn-primary" })</li>
+                <li>@Html.ActionLink("Doctor", "Register", "Account", new { area = "" }, new { @class = "btn btn-primary" })</li>
+                <li>@Html.ActionLink("Appointment", "Appointmentdashboard", "Appointment", new { area = "" }, new { @class = "btn btn-primary" })</li>
+            </ul>
+        </div>
+    }
+    else if (@Session["Role"].ToString() == "Doctor")
+    {
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" style="align-self:flex-end">
+                <li>@Html.ActionLink("Patient", "Login", "Account", new { area = "" }, new { @class = "btn btn-primary" })</li>
+                <li>@Html.ActionLink("Appointment", "Appointmentdashboard", "Appointment", new { area = "" }, new { @class = "btn btn-primary" })</li>
+            </ul>
+        </div>
+    }
+    else
+    {
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" style="align-self:flex-end">
+                <li>@Html.ActionLink("Book Appointment", "Appointment", "Appointment", new { area = "" }, new { @class = "btn btn-primary" })</li>
+            </ul>
+        </div>
+    }
+</div>
+}
+
+
